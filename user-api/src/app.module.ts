@@ -4,6 +4,7 @@ import { UserModule } from './user/user.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GrpcReflectionModule } from 'nestjs-grpc-reflection';
 import grpcOption from './config/grpc.option';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import grpcOption from './config/grpc.option';
       useFactory: (cs: ConfigService) => grpcOption(cs),
     }),
     UserModule,
+    AuthModule,
   ],
   providers: [PrismaService],
 })

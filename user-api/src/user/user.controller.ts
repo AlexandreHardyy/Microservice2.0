@@ -20,7 +20,9 @@ import { status as RpcStatus } from '@grpc/grpc-js';
 import { validate, ValidatorOptions } from 'class-validator';
 import { plainToInstance } from 'class-transformer';
 import { CreateUserDto } from './dto/create-user';
+import { GrpcAuthGuard } from 'src/auth/auth.guard';
 import { UpdateUserDto } from './dto/update-user';
+import { GRPCUser } from 'src/auth/user.decorator';
 
 @Controller()
 export class UserController {
@@ -37,8 +39,12 @@ export class UserController {
     }
   }
 
+  @UseGuards(GrpcAuthGuard)
   @GrpcMethod('UserService')
-  async Find(@Payload() req: FindRequest): Promise<FindResponse> {
+  async Find(
+    @Payload() req: FindRequest,
+    @GRPCUser() user,
+  ): Promise<FindResponse> {
     try {
       Object.keys(req).forEach((key) => req[key] === '' && delete req[key]);
       const where = {
@@ -51,8 +57,12 @@ export class UserController {
     }
   }
 
+  @UseGuards(GrpcAuthGuard)
   @GrpcMethod('UserService')
-  async Update(@Payload() req: UpdateRequest): Promise<UpdateResponse> {
+  async Update(
+    @Payload() req: UpdateRequest,
+    @GRPCUser() jwtUser,
+  ): Promise<UpdateResponse> {
     try {
       // if (req.user?.id !== jwtUser.id)
       //   throw new RpcException({

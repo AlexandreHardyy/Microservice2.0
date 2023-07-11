@@ -8,6 +8,7 @@ import { join } from 'path';
 import { ConfigService } from '@nestjs/config';
 import { AUTH_PACKAGE_NAME } from 'src/stubs/auth/service';
 import { USER_PACKAGE_NAME } from 'src/stubs/user/service';
+import { ServerCredentials } from '@grpc/grpc-js';
 
 export default (cs: ConfigService) =>
   addReflectionToGrpcConfig({
@@ -19,6 +20,7 @@ export default (cs: ConfigService) =>
         includeDirs: [join(__dirname, '../proto')],
       },
       protoPath: [join(__dirname, '../proto/user/service.proto')],
+      credentials: ServerCredentials.createInsecure(),
     },
   } as GrpcOptions);
 
@@ -41,6 +43,7 @@ export const authGrpcOptions = (cs: ConfigService): ClientProviderOptions => {
         // Allow keepalive pings when there are no gRPC calls.
         keepalivePermitWithoutCalls: 1,
       },
+      credentials: ServerCredentials.createInsecure(),
     },
   };
 };
