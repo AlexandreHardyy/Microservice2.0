@@ -64,7 +64,7 @@ export class UserController {
     @GRPCUser() jwtUser,
   ): Promise<UpdateResponse> {
     try {
-      // if (req.user?.id !== jwtUser.id)
+      // if (req.item?.id !== jwtUser.id)
       //   throw new RpcException({
       //     code: RpcStatus.PERMISSION_DENIED,
       //     message: 'you do not have acces to this resource',

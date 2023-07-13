@@ -26,7 +26,7 @@ export class AppService implements OnModuleInit {
     email: string,
     password: string,
   ): Promise<CheckPasswordResponse> {
-    Logger.log(this.client);
+    Logger.log(this.userService);
     const res: CheckPasswordResponse = await firstValueFrom(
       this.userService.checkPassword({ email, password }) as any,
     );

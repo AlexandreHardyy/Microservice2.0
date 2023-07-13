@@ -81,7 +81,7 @@ export class AppController implements AuthServiceController {
       if (!user)
         throw new RpcException({
           code: RpcStatus.NOT_FOUND,
-          message: 'user not found',
+          message: 'item not found',
         });
 
       return {

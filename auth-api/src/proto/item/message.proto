@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package item;
+
+import "google/protobuf/timestamp.proto";
+
+message Item {
+    int64 id = 1;
+    string name = 2;
+    string description = 3;
+    int32 price = 4;
+    float quantity = 5;
+
+    google.protobuf.Timestamp created_at = 6;
+    google.protobuf.Timestamp updated_at = 7;
+}
+
+message CreateItemRequest {
+    string name = 1;
+    string description = 2;
+    int32 price = 3;
+    float quantity = 4;
+}
+

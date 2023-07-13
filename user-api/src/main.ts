@@ -10,6 +10,7 @@ async function bootstrap() {
   app.connectMicroservice(grpcOption(cs));
   app.enableShutdownHooks();
   await app.startAllMicroservices();
+  await app.listen(3002);
   Logger.log(`User API is listening on port ${cs.get('PORT') || 4002}`);
 }
 bootstrap();

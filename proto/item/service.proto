@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package item;
+
+import "google/protobuf/timestamp.proto";
+import "item/message.proto";
+
+option go_package = "stubs";
+
+service ItemService {
+    rpc CreateItem(CreateItemRequest) returns (Item) {};
+}
+

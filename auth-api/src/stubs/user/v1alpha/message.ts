@@ -1,7 +1,7 @@
 /* eslint-disable */
-import { Timestamp } from "../../google/protobuf/timestamp";
+import { Timestamp } from '../../google/protobuf/timestamp';
 
-export const protobufPackage = "user.v1alpha";
+export const protobufPackage = 'item.v1alpha';
 
 export enum UserRole {
   USER_ROLE_BASIC = 0,
@@ -95,4 +95,4 @@ export interface MakeAdminResponse {
   user?: User;
 }
 
-export const USER_V1ALPHA_PACKAGE_NAME = "user.v1alpha";
+export const USER_V1ALPHA_PACKAGE_NAME = 'item.v1alpha';
