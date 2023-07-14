@@ -9,5 +9,8 @@ option go_package = "stubs";
 
 service ItemService {
     rpc CreateItem(CreateItemRequest) returns (Item) {};
+    rpc Find(FindRequest) returns (FindResponse) {};
+    rpc UdpateItem(UpdateRequest) returns (UpdateResponse) {};
+    rpc DeleteItem(DeleteRequest) returns (DeleteResponse) {};
 }
 

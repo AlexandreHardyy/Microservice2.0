@@ -22,3 +22,32 @@ message CreateItemRequest {
     float quantity = 4;
 }
 
+message FindRequest {
+    int64 id = 1;
+    string name = 2;
+}
+
+message FindResponse {
+    repeated Item item = 1;
+}
+
+message UpdateRequest {
+    string id = 1;
+    string name = 2;
+    string description = 3;
+    string price = 4;
+    string quantity = 5;
+}
+
+message UpdateResponse {
+    Item item = 1;
+}
+
+message DeleteRequest {
+    string id = 1;
+}
+
+message DeleteResponse {
+    Item item = 1;
+}
+

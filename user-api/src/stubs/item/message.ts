@@ -20,4 +20,33 @@ export interface CreateItemRequest {
   quantity?: number | undefined;
 }
 
+export interface FindRequest {
+  id?: number | undefined;
+  name?: string | undefined;
+}
+
+export interface FindResponse {
+  item?: Item[] | undefined;
+}
+
+export interface UpdateRequest {
+  id?: string | undefined;
+  name?: string | undefined;
+  description?: string | undefined;
+  price?: string | undefined;
+  quantity?: string | undefined;
+}
+
+export interface UpdateResponse {
+  item?: Item | undefined;
+}
+
+export interface DeleteRequest {
+  id?: string | undefined;
+}
+
+export interface DeleteResponse {
+  item?: Item | undefined;
+}
+
 export const ITEM_PACKAGE_NAME = "item";
