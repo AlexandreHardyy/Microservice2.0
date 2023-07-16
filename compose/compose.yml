@@ -42,10 +42,25 @@ services:
       - insecure=true
       - PORT=4000
       - AUTH_API_URL=auth-api:4000
+      - PSP_API_URL=psp-api:4000
     ports:
       - "4002:4000"
     stdin_open: true
     command: npm run start:migrate:dev
+
+  psp-api:
+    image: alexandrehardy/psp-api
+    volumes:
+      - ../psp-api:/app/
+      - /app/node_modules
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/app
+      - insecure=true
+      - PORT=4000
+    ports:
+      - "4005:4000"
+    stdin_open: true
+    command: npm run start:dev
 
 networks:
   default:

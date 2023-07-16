@@ -13,13 +13,19 @@ import {
   FindResponse,
   UpdateRequest,
   UpdateResponse,
+  BuyRequest,
+  BuyResponse,
 } from '../stubs/item/message';
 import { GrpcAuthGuard } from '../auth/auth.guard';
 import { UpdateItemDto } from './dto/update-user';
+import { PspService } from 'src/psp/psp.service';
 
 @Controller()
 export class ItemController {
-  constructor(private readonly itemService: ItemService) {}
+  constructor(
+    private readonly itemService: ItemService,
+    private readonly pspService: PspService,
+  ) {}
 
   @UseGuards(GrpcAuthGuard)
   @GrpcMethod('ItemService')
@@ -72,11 +78,11 @@ export class ItemController {
 
   @GrpcMethod('ItemService')
   async DeleteItem(req: DeleteRequest): Promise<DeleteResponse> {
-    const user = await this.itemService.deleteUser({
+    const item = await this.itemService.deleteItem({
       id: +req.id,
     });
 
-    return { item: user as any };
+    return { item: item as any };
   }
 
   private handlePrismaErr(err: Error) {
@@ -107,5 +113,50 @@ export class ItemController {
       });
     }
     return dto as typeof Dto;
+  }
+
+  @UseGuards(GrpcAuthGuard)
+  @GrpcMethod('ItemService')
+  async BuyItem(req: BuyRequest): Promise<BuyResponse> {
+    const item = await this.itemService.item({ id: +req.id });
+
+    if (!item) {
+      return {
+        message: 'item not found',
+      };
+    }
+
+    if (item.quantity <= 0) {
+      return {
+        message: 'item out of stock',
+      };
+    }
+
+    const price = item.price;
+
+    const response = await this.pspService.pspValidation({
+      ccNumber: `${req.ccNumber}`,
+      ccName: `${req.ccName}`,
+      price,
+    });
+
+    if (response.transactionStatus === 'ok') {
+      const newItem = await this.itemService.updateItem({
+        where: {
+          id: +req.id,
+        },
+        data: {
+          quantity: item.quantity - 1,
+        },
+      });
+      return {
+        item: newItem as any,
+        message: 'transaction validate',
+      };
+    } else {
+      return {
+        message: 'transaction error',
+      };
+    }
   }
 }

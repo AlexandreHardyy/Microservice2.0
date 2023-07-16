@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package psp;
+
+import "google/protobuf/timestamp.proto";
+
+message PspValidatioRequest {
+    string ccNumber = 1;
+    string ccName = 2;
+    int32 price = 3;
+}
+
+message PspValidatioResponse {
+    string transactionStatus = 1;
+}

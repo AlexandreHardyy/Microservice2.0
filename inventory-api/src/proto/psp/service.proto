@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package psp;
+
+import "google/protobuf/timestamp.proto";
+import "psp/message.proto";
+
+option go_package = "stubs";
+
+service PspService {
+    rpc PspValidation(PspValidatioRequest) returns (PspValidatioResponse) {};
+}
+

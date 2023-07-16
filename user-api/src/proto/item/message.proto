@@ -51,3 +51,14 @@ message DeleteResponse {
     Item item = 1;
 }
 
+message BuyRequest {
+    string id = 1;
+    string ccNumber = 2;
+    string ccName = 3;
+}
+
+message BuyResponse {
+    Item item = 1;
+    string message = 2;
+}
+

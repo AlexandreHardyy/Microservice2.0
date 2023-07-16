@@ -3,6 +3,8 @@ import { Metadata } from "@grpc/grpc-js";
 import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
 import { Observable } from "rxjs";
 import {
+  BuyRequest,
+  BuyResponse,
   CreateItemRequest,
   DeleteRequest,
   DeleteResponse,
@@ -25,6 +27,8 @@ export interface ItemServiceClient {
   udpateItem(request: UpdateRequest, metadata?: Metadata): Observable<UpdateResponse>;
 
   deleteItem(request: DeleteRequest, metadata?: Metadata): Observable<DeleteResponse>;
+
+  buyItem(request: BuyRequest, metadata?: Metadata): Observable<BuyResponse>;
 }
 
 export interface ItemServiceController {
@@ -41,11 +45,13 @@ export interface ItemServiceController {
     request: DeleteRequest,
     metadata?: Metadata,
   ): Promise<DeleteResponse> | Observable<DeleteResponse> | DeleteResponse;
+
+  buyItem(request: BuyRequest, metadata?: Metadata): Promise<BuyResponse> | Observable<BuyResponse> | BuyResponse;
 }
 
 export function ItemServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ["createItem", "find", "udpateItem", "deleteItem"];
+    const grpcMethods: string[] = ["createItem", "find", "udpateItem", "deleteItem", "buyItem"];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcMethod("ItemService", method)(constructor.prototype[method], method, descriptor);

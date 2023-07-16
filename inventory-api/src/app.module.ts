@@ -4,6 +4,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import grpcOption from './config/grpc.option';
 import { ItemModule } from './item/item.module';
 import { AuthModule } from './auth/auth.module';
+import { PspModule } from './psp/psp.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { AuthModule } from './auth/auth.module';
     }),
     ItemModule,
     AuthModule,
+    PspModule
   ],
   controllers: [],
   providers: [],

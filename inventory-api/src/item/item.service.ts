@@ -48,7 +48,7 @@ export class ItemService {
     });
   }
 
-  async deleteUser(where: Prisma.ItemWhereUniqueInput): Promise<Item> {
+  async deleteItem(where: Prisma.ItemWhereUniqueInput): Promise<Item> {
     return this.prisma.item.delete({
       where,
     });

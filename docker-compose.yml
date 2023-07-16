@@ -40,3 +40,10 @@ services:
     extends:
       file: ./compose/compose.yml
       service: inventory-api
+
+  psp-api:
+    depends_on:
+      - db
+    extends:
+      file: ./compose/compose.yml
+      service: psp-api
