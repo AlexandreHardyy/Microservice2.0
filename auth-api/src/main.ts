@@ -1,3 +1,4 @@
+import './config/tracing';
 import { NestFactory } from '@nestjs/core';
 import grpcOption from './config/grpc.option';
 import { ConfigService } from '@nestjs/config';

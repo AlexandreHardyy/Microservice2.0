@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  auth-api:
+    image: alexandrehardy/auth-api
+    volumes:
+      - ../auth-api:/app/
+      - /app/node_modules
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/app
+      - insecure=true
+      - PORT=4000
+      - USER_API_URL=user-api:4000
+      - JWT_SECRET=super-secret
+    ports:
+      - "4004:4000"
+    stdin_open: true
+    command: npm run start:migrate:dev
+
+  user-api:
+    image: alexandrehardy/user-api
+    volumes:
+      - ../user-api:/app/
+      - /app/node_modules
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/app
+      - insecure=true
+      - PORT=4000
+      - AUTH_API_URL=auth-api:4000
+    ports:
+      - "4003:4000"
+    stdin_open: true
+    command: npm run start:migrate:dev
+
+  inventory-api:
+    image: alexandrehardy/inventory-api
+    volumes:
+      - ../inventory-api:/app/
+      - /app/node_modules
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/app
+      - insecure=true
+      - PORT=4000
+      - AUTH_API_URL=auth-api:4000
+    ports:
+      - "4002:4000"
+    stdin_open: true
+    command: npm run start:migrate:dev
+
+networks:
+  default:
+    external: true
+    name: grpc-inventory-default

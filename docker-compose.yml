@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  tracing:
+    image: jaegertracing/all-in-one:latest
+    environment:
+      - COLLECTOR_OTLP_ENABLED=true
+    ports:
+      - "16686:16686"
+      - "14268:14268"
+      - "4318:4318"
+
+  db:
+    extends:
+      file: ./compose/compose.db.yml
+      service: db
+
+  adminer:
+    extends:
+      file: ./compose/compose.db.yml
+      service: adminer
+
+  auth-api:
+    depends_on:
+      - db
+    extends:
+      file: ./compose/compose.yml
+      service: auth-api
+
+  user-api:
+    depends_on:
+      - db
+    extends:
+      file: ./compose/compose.yml
+      service: user-api
+
+  inventory-api:
+    depends_on:
+      - db
+    extends:
+      file: ./compose/compose.yml
+      service: inventory-api
