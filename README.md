@@ -21,6 +21,7 @@ docker-compose up -d
 ## Informations
 
 Projet de gestion d'inventaire.
+*Attention il est parfois nécessaire de relancer deux fois le container psp pour qu'il fonctionne*
 
 ## License
 
