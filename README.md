@@ -17,10 +17,6 @@ docker-compose up -d
 #### [http://localhost:4003](http://localhost:4003) : User-api
 #### [http://localhost:4004](http://localhost:4004) : Auth-api
 
-## Observability
-
-#### [http://localhost:4000](http://localhost:4000) : Gateway
-
 ## License
 
 [MIT licensed](LICENSE).
