@@ -60,7 +60,7 @@ services:
     ports:
       - "4005:4000"
     stdin_open: true
-    command: npm run start:migrate:dev
+    command: npm run start:dev
 
 networks:
   default:

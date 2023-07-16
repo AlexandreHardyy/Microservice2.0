@@ -41,7 +41,9 @@ services:
       file: ./compose/compose.yml
       service: inventory-api
 
-  # psp-api:
-  #   extends:
-  #     file: ./compose/compose.yml
-  #     service: psp-api
+  psp-api:
+    depends_on:
+      - db
+    extends:
+      file: ./compose/compose.yml
+      service: psp-api
