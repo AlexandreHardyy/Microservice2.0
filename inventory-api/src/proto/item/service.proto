@@ -12,5 +12,6 @@ service ItemService {
     rpc Find(FindRequest) returns (FindResponse) {};
     rpc UdpateItem(UpdateRequest) returns (UpdateResponse) {};
     rpc DeleteItem(DeleteRequest) returns (DeleteResponse) {};
+    rpc BuyItem(BuyRequest) returns (BuyResponse) {};
 }
 

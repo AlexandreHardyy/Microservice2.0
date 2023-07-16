@@ -49,4 +49,15 @@ export interface DeleteResponse {
   item?: Item | undefined;
 }
 
+export interface BuyRequest {
+  id?: string | undefined;
+  ccNumber?: string | undefined;
+  ccName?: string | undefined;
+}
+
+export interface BuyResponse {
+  item?: Item | undefined;
+  message?: string | undefined;
+}
+
 export const ITEM_PACKAGE_NAME = "item";

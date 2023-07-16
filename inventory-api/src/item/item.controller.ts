@@ -13,13 +13,16 @@ import {
   FindResponse,
   UpdateRequest,
   UpdateResponse,
+  BuyRequest,
+  BuyResponse
 } from '../stubs/item/message';
 import { GrpcAuthGuard } from '../auth/auth.guard';
 import { UpdateItemDto } from './dto/update-user';
+import { PspService } from 'src/psp/psp.service';
 
 @Controller()
 export class ItemController {
-  constructor(private readonly itemService: ItemService) {}
+  constructor(private readonly itemService: ItemService, private readonly pspService: PspService) {}
 
   @UseGuards(GrpcAuthGuard)
   @GrpcMethod('ItemService')
@@ -107,5 +110,28 @@ export class ItemController {
       });
     }
     return dto as typeof Dto;
+  }
+
+  @UseGuards(GrpcAuthGuard)
+  @GrpcMethod('ItemService')
+  async BuyItem(req: BuyRequest): Promise<BuyResponse> {
+    const item = await this.itemService.item({id: +req.id})
+
+    if (!item) { return }
+
+    const price = item.price
+
+    const response = await this.pspService.pspValidation({
+      ccNumber: `${req.ccNumber}`,
+      ccName: `${req.ccName}`,
+      price
+    })
+
+    if (response.transactionStatus === 'ok') {
+      return { 
+        item: item as any,
+        message: 'transaction validate'
+       };
+    }
   }
 }
